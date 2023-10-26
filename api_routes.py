@@ -95,4 +95,6 @@ def autos_por_marca():
     cursor.execute('SELECT * FROM autos WHERE make = ?', (marca,))
     autos = cursor.fetchall()
     conn.close()
+    if not autos:
+        return jsonify({'error': 'No se encontraron autos de la marca especificada'}), 404
     return jsonify(autos)
