@@ -1,9 +1,10 @@
 class Venta:
-    def __init__(self, ID, VIN, date, price, buyer) -> None:
+    def __init__(self, ID, VIN, date, price, make, buyer) -> None:
         self.ID = ID
         self.VIN = VIN
         self.date = date
         self.price = price
+        self.make = make
         self.buyer = buyer
 
     def serialize(self):
@@ -12,5 +13,6 @@ class Venta:
             'VIN': self.VIN,
             'date': self.date,
             'price': self.price,
+            'make': self.make,
             'buyer': self.buyer
         }

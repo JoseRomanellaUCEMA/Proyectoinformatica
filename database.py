@@ -23,6 +23,7 @@ cursor.execute('''
         VIN TEXT,
         date TEXT,
         price REAL,
+        make TEXT,
         buyer TEXT,
         FOREIGN KEY (VIN) REFERENCES autos (VIN)
     )
