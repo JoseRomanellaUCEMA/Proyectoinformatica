@@ -70,6 +70,18 @@ def delete_auto(vin):
     conn.close()
     return jsonify({'message': 'Auto eliminado exitosamente'})
 
+@app.route('/autos/make', methods=['GET'])
+def get_autos_by_make():
+    marca = request.args.get('make')
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM autos WHERE make = ?', (marca,))
+    autos = cursor.fetchall()
+    conn.close()
+    if not autos:
+        return jsonify({'error': 'No se encontraron autos de la marca especificada'}), 404
+    return jsonify(autos)
+
 @app.route('/ventas', methods=['GET'])
 def get_ventas():
     conn = sqlite3.connect(app.config['DATABASE'])
@@ -95,17 +107,19 @@ def add_venta():
 
     return jsonify({'message': 'Venta registrada exitosamente'})
 
-@app.route('/autos/make', methods=['GET'])
-def get_autos_by_make():
+@app.route('/ventas/make', methods=['GET'])
+def get_ventas_by_make():
     marca = request.args.get('make')
     conn = sqlite3.connect(app.config['DATABASE'])
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM autos WHERE make = ?', (marca,))
+    cursor.execute('SELECT * FROM ventas WHERE make = ?', (marca,))
     autos = cursor.fetchall()
     conn.close()
     if not autos:
-        return jsonify({'error': 'No se encontraron autos de la marca especificada'}), 404
+        return jsonify({'error': 'No se encontraron ventas de autos de la marca especificada'}), 404
     return jsonify(autos)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
