@@ -1,6 +1,6 @@
 class Auto:
 
-    def __init__(self, VIN, make, model, year, price, color, mileage, condition, features) -> None:
+    def __init__(self, VIN, make, model, year, price, color, mileage, condition, features, price_ars) -> None:
         self.VIN = VIN
         self.make = make
         self.model = model
@@ -10,6 +10,7 @@ class Auto:
         self.mileage = mileage
         self.condition = condition
         self.features = features
+        self.price_ars = price_ars
 
     def serialize(self):
         return {
@@ -17,7 +18,8 @@ class Auto:
             'make': self.make,
             'model': self.model,
             'year': self.year,
-            'price': self.price
+            'price': self.price,
+            'price_ars':self.price_ars
         }
 
     def serialize_details(self):
@@ -30,6 +32,7 @@ class Auto:
             'color': self.color,
             'mileage': self.mileage,
             'condition': self.condition,
-            'features': self.features
+            'features': self.features,
+            'price_ars':self.price_ars
         }
 
