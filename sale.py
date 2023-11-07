@@ -6,7 +6,6 @@ class Venta:
         self.price = price
         self.make = make
         self.buyer = buyer
-        self.price_ars = price_ars
 
     def serialize(self):
         return {
@@ -16,5 +15,4 @@ class Venta:
             'price': self.price,
             'make': self.make,
             'buyer': self.buyer,
-            'price_ars':self.price_ars
         }
