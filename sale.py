@@ -1,5 +1,5 @@
 class Venta:
-    def __init__(self, ID, VIN, date, price, make, buyer, price_ars) -> None:
+    def __init__(self, ID, VIN, date, price, make, buyer) -> None:
         self.ID = ID
         self.VIN = VIN
         self.date = date
