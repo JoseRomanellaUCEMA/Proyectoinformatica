@@ -26,16 +26,16 @@ def get_autos():
 def add_auto():
     data = request.json
 
-    if 'VIN' not in data or 'make' not in data or 'model' not in data or 'year' not in data or 'price' not in data or 'color' not in data or 'mileage' not in data or 'condition' not in data or 'features' not in data:
+    if 'VIN' not in data or 'make' not in data or 'model' not in data or 'year' not in data or 'price' not in data or 'color' not in data or 'mileage' not in data or 'condition' not in data or 'features' not in data or 'price_ars' not in data:
         return jsonify({'error': 'Faltan campos obligatorios'}), 400
 
-    auto = Auto(data['VIN'], data['make'], data['model'], data['year'], data['price'], data['color'], data['mileage'], data['condition'], data['features'])
+    auto = Auto(data['VIN'], data['make'], data['model'], data['year'], data['price'], data['color'], data['mileage'], data['condition'], data['features'], data['price_ars'])
 
     conn = sqlite3.connect(app.config['DATABASE'])
     cursor = conn.cursor()
     try:
-        cursor.execute('INSERT INTO autos (VIN, make, model, year, price, color, mileage, condition, features) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                       (auto.VIN, auto.make, auto.model, auto.year, auto.price, auto.color, auto.mileage, auto.condition, auto.features))
+        cursor.execute('INSERT INTO autos (VIN, make, model, year, price, color, mileage, condition, features, price_ars) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                       (auto.VIN, auto.make, auto.model, auto.year, auto.price, auto.color, auto.mileage, auto.condition, auto.features, auto.price_ars))
         conn.commit()
         conn.close()
 
@@ -62,15 +62,15 @@ def get_auto(vin):
 def update_auto(vin):
     data = request.json
 
-    if 'make' not in data or 'model' not in data or 'year' not in data or 'price' not in data or 'color' not in data or 'mileage' not in data or 'condition' not in data or 'features' not in data:
+    if 'make' not in data or 'model' not in data or 'year' not in data or 'price' not in data or 'color' not in data or 'mileage' not in data or 'condition' not in data or 'features' not in data or 'price_ars' not in data:
         return jsonify({'error': 'Faltan campos obligatorios'}), 400
 
-    auto = Auto(vin, data['make'], data['model'], data['year'], data['price'], data['color'], data['mileage'], data['condition'], data['features'])
+    auto = Auto(vin, data['make'], data['model'], data['year'], data['price'], data['color'], data['mileage'], data['condition'], data['features'], data['price_ars'])
 
     conn = sqlite3.connect(app.config['DATABASE'])
     cursor = conn.cursor()
-    cursor.execute('UPDATE autos SET make = ?, model = ?, year = ?, price = ?, color = ?, mileage = ?, condition = ?, features = ? WHERE VIN = ?',
-                   (auto.make, auto.model, auto.year, auto.price, auto.color, auto.mileage, auto.condition, auto.features, vin))
+    cursor.execute('UPDATE autos SET make = ?, model = ?, year = ?, price = ?, color = ?, mileage = ?, condition = ?, features = ?, price_ars = ? WHERE VIN = ?',
+                   (auto.make, auto.model, auto.year, auto.price, auto.color, auto.mileage, auto.condition, auto.features, auto.price_ars, vin))
     conn.commit()
     conn.close()
     return jsonify({'message': 'Auto actualizado exitosamente'})
