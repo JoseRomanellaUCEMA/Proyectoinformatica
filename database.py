@@ -13,7 +13,8 @@ cursor.execute('''
         color TEXT,
         mileage REAL,
         condition TEXT,
-        features TEXT
+        features TEXT,
+        price_ars REAL
     )
 ''')
 
@@ -25,6 +26,7 @@ cursor.execute('''
         price REAL,
         make TEXT,
         buyer TEXT,
+        price_ars REAL,
         FOREIGN KEY (VIN) REFERENCES autos (VIN)
     )
 ''')
