@@ -121,15 +121,15 @@ def get_ventas():
 def add_venta():
     data = request.json
 
-    if 'VIN' not in data or 'date' not in data or 'price' not in data or 'make' not in data or 'buyer' not in data:
+    if 'VIN' not in data or 'date' not in data or 'price' not in data or 'make' not in data or 'buyer' not in data or 'price_ars' not in data:
         return jsonify({'error': 'Faltan campos obligatorios'}), 400
 
-    venta = Venta(None, data['VIN'], data['date'], data['price'], data['make'], data['buyer'])
+    venta = Venta(None, data['VIN'], data['date'], data['price'], data['make'], data['buyer'], data['price_ars'])
 
     conn = sqlite3.connect(app.config['DATABASE'])
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO ventas (VIN, date, price, make, buyer) VALUES (?, ?, ?, ?, ?)',
-                   (venta.VIN, venta.date, venta.price, venta.make, venta.buyer))
+    cursor.execute('INSERT INTO ventas (VIN, date, price, make, buyer, price_ars) VALUES (?, ?, ?, ?, ?, ?)',
+                   (venta.VIN, venta.date, venta.price, venta.make, venta.buyer, venta.price_ars))
     conn.commit()
     conn.close()
 
